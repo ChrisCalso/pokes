@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<body>
+    <fieldset>
+    {% if messages %} {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %} {% endif %}
+
+    <h2>Welcome to Wakanda!!! {{loggedin.username}}!</h2>
+
+
+    {% if messages %} {% for error in error %}
+    <p>{{error}}</p>
+    {% endfor %} {% endif %}
+    <table>
+      <h4>People you can stab:</h4>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Alias</th>
+          <th>Email Address</th>
+          <th># of Pokes</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      {% for user in users %}
+        <tr>
+          <td>{{user.name}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.gotpoked.all.count}}<td>
+
+          <td>
+            <form action="/createPoke/{{user.id}}" method="POST">
+              {% csrf_token %}
+              <input type="submit" name='poke' value="POKE">
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+    <a href="/logout">Logout</a>
+  </body>
+</html>
