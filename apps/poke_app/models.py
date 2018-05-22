@@ -39,7 +39,7 @@ class UserManager(models.Manager):
         if not EMAIL_REGEX.match(post_data['email']):
             errors['email_format'] = "Wrong email format"
         if User.objects.filter(email=post_data['email']).count() > 0:
-            errors['email'] = f"Email {post_data['email']} already exists"
+            errors['email'] = "Email {} already exists".format(post_data['email'])
 
         #error handling for uniqueness of username
         if len(User.objects.filter(username=post_data['username'])) > 0:
@@ -73,7 +73,7 @@ class User(models.Model):
     objects = UserManager()
 
     def __str__(self):
-        return self.name, self.username
+        return "<Users - user: {}, {}>".format(self.name, self.username)
 
 class PokeManager(models.Manager):
     def createPoke(self, currentuser, user_id):

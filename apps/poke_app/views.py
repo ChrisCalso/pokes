@@ -51,7 +51,7 @@ def dash(request):
         'pokes': Poke.objects.all(),
         'users': User.objects.all().exclude(id=request.session['user_id']),
     }
-    print('dashtest')
+    
     return render(request, 'poke_app/dash.html', context)
 
 def createPoke(request, user_id):
